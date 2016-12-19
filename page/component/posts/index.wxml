@@ -1,0 +1,118 @@
+
+  <view>
+    <navigator class="wx-navigator_iOsAsd" url="../create/index" hover-class="navigator-hover">
+      <image class="wx-image_SfQyMy" data-c_e_id="wx_image_6a85bf20" mode="aspectFit" src="http://tb2.bdstatic.com/tb/mobile/sfrs/img/light_frs_post_entrance_8e888f5.png" style="background-size: contain; background-position: center center; background-repeat: no-repeat; "
+      />
+    </navigator>
+  </view>
+  <view class="swiper-tab">
+    <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">精选</view>
+    <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">周边</view>
+  </view>
+
+<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
+
+
+  <swiper-item>
+    <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower">
+      <block wx:for="{{postsNearby}}">
+        <view class="feed-item">
+          <view class="feed-source">
+            <view class="avatar">
+              <image src="{{item.poster_profile}}"></image>
+              <text>{{item.poster_name}}</text>
+            </view>
+            <view class="feed-time">
+              <text class="item-more">{{item.friendly_create_at}}</text>
+            </view>
+          </view>
+          <view class="feed-content">
+            <block wx:for="{{item.images}}" wx:for-item="item">
+              <view class="question" bindtap="bindQueTap">
+                  <!--<text>{{item.text}}</text>-->
+                  <image  mode="aspectFill" style="width:100%"  data-imgUrl="{{item}}" bindtap="previewImg" src="{{item}}"></image>
+              </view>
+            </block>
+            <view class="answer-body">
+              <view data-id="{{item._id}}">
+                <navigator url="../detail/index?post_id={{item._id}}">
+                <text class="answer-txt" aid="{{answer_id}}">{{item.text}}</text>
+                 </navigator>
+              </view>
+            
+            </view>
+          </view>
+
+                  
+              
+           <view class="feed-action">
+                
+                <view class="like-comments" bindtap="likePost"  data-id="{{item._id}}"  style="margin-right:20rpx">
+                  <image src="/images/ding.png" />
+                  <text>{{item.like_count}}</text>
+                </view>
+                <view class="like-comments" >
+                 <navigator url="../detail/index?post_id={{item._id}}">
+                     <image src="/images/ping.png" />
+                    <text>{{item.reply_count}}</text>
+                      </navigator>
+                </view>
+               
+            </view>
+  
+
+
+        </view>
+      </block>
+    </scroll-view>
+  </swiper-item>
+
+  <!-- 精选 -->
+  <swiper-item>
+    <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower">
+      <block wx:for="{{postsHot}}">
+        <view class="feed-item">
+          <view class="feed-source">
+            <view class="avatar">
+              <image src="{{item.poster_profile}}"></image>
+              <text>{{item.poster_name}}</text>
+            </view>
+            <view class="feed-time">
+              <text class="item-more">{{item.friendly_create_at}}</text>
+            </view>
+          </view>
+          <view class="feed-content">
+            <block wx:for="{{item.images}}" wx:for-item="item">
+              <view class="question" bindtap="bindQueTap">
+                <a class="question-link">
+
+                  <!--<text>{{item.text}}</text>-->
+                  <image mode="aspectFill" data-imgUrl="{{item}}" bindtap="previewImg" src="{{item}}"></image>
+                </a> 
+              </view>
+            </block>
+            <view class="answer-body">
+              <view bindtap="bindItemTap">
+                <text class="answer-txt" aid="{{answer_id}}">{{item.text}}</text>
+              </view>
+              <view class="answer-actions" bindtap="bindItemTap">
+                <view class="like dot">
+                  <a>{{item.fav_count}} 顶 </a> 
+                </view>
+                <view class="comments dot">
+                  <navigator url="../detail/index?id=7097426&&post_id={{item._id}}">
+                    <a>{{item.reply_count}} 评论 </a> 
+                  </navigator>
+                </view>
+
+                <!--<view class="follow-it">
+                            <a>关注问题</a>     
+                        </view>-->
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </swiper-item>
+</swiper>
